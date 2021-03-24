@@ -1,11 +1,39 @@
-class Genre < Inherit
+class Genre
+
+        attr_accessor :name, :artist
+
+        extend Concerns::Findable
+        
+        @@all = []
+        
+        def initialize(name)
+            @name = name
+        end
+        
+        def save
+            @@all << self
+        end
     
-    def songs
-        Song.all.select {|song| song.artist}
-    end
+        def self.all
+        @@all
+        end
     
-    def artists
-        songs.map {|artist| artist.genre}
-    end
+        def self.destroy_all
+            @@all.clear
+        end
+        
+        def self.create(name)
+            create = new(name)
+            create.save
+            create
+        end
+
+        def songs
+        Song.all.select {|song| song.genre}
+        end
+
+        def artists
+            self.songs.collect{|x| x.artist}.uniq
+        end
     
     end
