@@ -15,7 +15,7 @@ class Genre
         end
     
         def self.all
-        @@all
+            @@all
         end
     
         def self.destroy_all
@@ -29,11 +29,11 @@ class Genre
         end
 
         def songs
-        Song.all.select {|song| song.genre}
+            Song.all.select {|song| song.genre}
         end
 
         def artists
-            self.songs.collect{|x| x.artist}.uniq
+            self.songs.collect{|s| s.artist}.uniq
         end
     
     end
